@@ -36,15 +36,15 @@ prices = np.linalg.inv(net_matrix) @ resid_vector
 # Extract results
 P_t_n, P_nt, W = prices.round(3)
 Salario_real = round(W / (0.5 * P_t_n + 0.5 * P_nt), 3)
-
+Tipo_de_cambio_real = 1 / (0.5 * P_t_n + 0.5 * P_nt)
 
 # Plot results
 fig, ax = plt.subplots()
-categories = ["Transables", "Transables Nacionalizados", "No Transables", "Salario", "Salario_real"]
-values = [P_t, P_t_n, P_nt, W, Salario_real]
+categories = ["Transables", "Transables Nacionalizados", "No Transables", "Salario", "Salario_real", "Tipo de cambio real"]
+values = [P_t, P_t_n, P_nt, W, Salario_real, Tipo_de_cambio_real]
 
 
-ax.bar(categories, values, color=["orange", "blue", "green", "red", "purple"])
+ax.bar(categories, values, color=["orange", "blue", "green", "red", "purple", "gray"])
 ax.set_ylabel("Valores")
 ax.set_title("Precios y Costo Argentino")
 ax.set_ylim(round(min(values)*5,0)/5-0.2, max(values) * 1.2)  # Add some padding for better visualization
@@ -61,3 +61,4 @@ st.write(f"**Transables nacionalizados:** {P_t_n}")
 st.write(f"**No Transables:** {P_nt}")
 st.write(f"**Salario Nominal:** {W}")
 st.write(f"**Salario Real:** {Salario_real}")
+st.write(f"**Tipo de cambio real:** {Tipo_de_cambio_real}")
